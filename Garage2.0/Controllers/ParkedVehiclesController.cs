@@ -51,6 +51,7 @@ namespace Garage2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                parkedVehicle.CheckInTime = DateTime.Now;
                 db.ParkedVehicles.Add(parkedVehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index");

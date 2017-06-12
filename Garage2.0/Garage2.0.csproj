@@ -166,6 +166,10 @@
     <Compile Include="Migrations\201706120754007_InitialCreate.Designer.cs">
       <DependentUpon>201706120754007_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706120851552_Created CheckInTime.cs" />
+    <Compile Include="Migrations\201706120851552_Created CheckInTime.Designer.cs">
+      <DependentUpon>201706120851552_Created CheckInTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ParkedVehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -228,6 +232,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201706120754007_InitialCreate.resx">
       <DependentUpon>201706120754007_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706120851552_Created CheckInTime.resx">
+      <DependentUpon>201706120851552_Created CheckInTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

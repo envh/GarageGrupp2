@@ -23,5 +23,6 @@ namespace Garage2._0.Models
         public string Brand { get; set; }
         public string Model { get; set; }
         public int AmountOfWheels { get; set; }
+        public DateTime CheckInTime { get; set; }
     }
 }
