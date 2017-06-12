@@ -7,8 +7,18 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Park a new vehicle", "Create")
 </p>
+<select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
+    <option value="RegNo">Reg No</option>
+    <option value="Type">Type</option>
+    <option value="Colour">Colour</option>
+    <option value="CheckInTime">Check In Time</option>
+</select>
+<form id="searchform">
+    <input name="searchValue" id="select" type="text" />
+    <input type="submit">
+</form>
 <table class="table">
     <tr>
         <th>
@@ -67,3 +77,34 @@
 }
 
 </table>
+<script>
+    AdaptForm = function ()
+    {
+        form = document.getElementById("searchform")
+        form.removeChild(document.getElementById("select"))
+        if (document.getElementById("searchProp").value == "Type")
+        {
+            var array = ["Car", "Bus", "Airplane", "Motorcycle", "Boat"]
+            var select = document.createElement("select");
+            select.name = "searchValue";
+            select.id = "select";
+            form.insertBefore(select, form.firstChild);
+
+            for (var i = 0; i < array.length; i++)
+            {
+                var option = document.createElement("option");
+                option.value = array[i];
+                option.text = array[i];
+                select.appendChild(option);
+            }
+        }
+        else
+        {
+            var text = document.createElement("input");
+            text.setAttribute("type", "text");
+            text.setAttribute("name", "searchValue")
+            text.id = "select";
+            form.insertBefore(text, form.firstChild);
+        }
+    }
+</script>
