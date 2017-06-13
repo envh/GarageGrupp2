@@ -145,7 +145,11 @@ namespace Garage2._0.Controllers
 
             }
             else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
-            //else if (searchProp == "CheckInTime") Vehicles = Vehicles.Where(e => e.CheckInTime == searchValue);
+            else if (searchProp == "CheckInTime")
+            {
+                var dateTime = int.Parse(searchValue);
+                Vehicles = Vehicles.Where(e => (e.CheckInTime.Hour == dateTime) || (e.CheckInTime.Minute == dateTime));
+            }
             return Vehicles;
         }
 
