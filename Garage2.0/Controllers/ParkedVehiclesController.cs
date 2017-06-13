@@ -16,9 +16,10 @@ namespace Garage2._0.Controllers
         private Garage2_0Context db = new Garage2_0Context();
 
         // GET: ParkedVehicles
-        public ActionResult Index()
+        public ActionResult Index(string searchProp, string searchValue)
         {
-            return View(db.ParkedVehicles.ToList());
+            var ParkedVehicles = Filter(searchProp, searchValue);
+            return View(ParkedVehicles.ToList());
         }
 
         // GET: ParkedVehicles/Details/5
@@ -115,6 +116,21 @@ namespace Garage2._0.Controllers
             db.ParkedVehicles.Remove(parkedVehicle);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
+        {
+            var Vehicles = db.ParkedVehicles.Select(e => e);
+            if (searchProp == "RegNo") Vehicles = Vehicles.Where(e => e.RegNo == searchValue);
+            else if (searchProp == "Type")
+            {
+                var vehicleType = (VehicleTypes)Enum.Parse(typeof(VehicleTypes), searchValue, true);
+                Vehicles = Vehicles.Where(e => e.Type == vehicleType);
+
+            }
+            else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
+            //else if (searchProp == "CheckInTime") Vehicles = Vehicles.Where(e => e.CheckInTime == searchValue);
+            return Vehicles;
         }
 
         protected override void Dispose(bool disposing)
