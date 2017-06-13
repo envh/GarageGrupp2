@@ -17,7 +17,7 @@
 </select>
 <form id="searchform">
     <input name="searchValue" id="select" type="text" />
-    <input type="submit" onsubmit="AddBackLink()">
+    <input type="submit">
 </form>
 <table class="table">
     <tr>
@@ -79,7 +79,12 @@
 </table>
 
 <div id="backLink">
-    @*@Html.ActionLink("Back to full list", "Index")*@
+    @{
+        if (ViewBag.InsertLink)
+        {
+            @Html.ActionLink("Back to full list", "Index")
+        }
+    }
 </div>
 
 <script>
@@ -111,16 +116,14 @@
             text.id = "select";
             form.insertBefore(text, form.firstChild);
         }
-
-        //AddBackLink();
     }
 
-    AddBackLink = function()
-    {
-        var pos = document.getElementById("backLink");
-        var link = document.createElement("a");
-        link.setAttribute("href", "/");
-        link.innerHTML = "Back to full list";
-        pos.appendChild(link);
-    }
+    //AddBackLink = function()
+    //{
+    //    var pos = document.getElementById("backLink");
+    //    var link = document.createElement("a");
+    //    link.setAttribute("href", "/");
+    //    link.innerHTML = "Back to full list";
+    //    pos.appendChild(link);
+    //}
 </script>

@@ -18,6 +18,14 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles
         public ActionResult Index(string searchProp, string searchValue)
         {
+            if (searchProp == null)
+            {
+                ViewBag.InsertLink = false;
+            }
+            else
+            {
+                ViewBag.InsertLink = true;
+            }
             var ParkedVehicles = Filter(searchProp, searchValue);
             return View(ParkedVehicles.ToList());
         }
