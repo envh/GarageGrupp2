@@ -17,7 +17,7 @@
 </select>
 <form id="searchform">
     <input name="searchValue" id="select" type="text" />
-    <input type="submit">
+    <input type="submit" onsubmit="AddBackLink()">
 </form>
 <table class="table">
     <tr>
@@ -77,6 +77,11 @@
 }
 
 </table>
+
+<div id="backLink">
+    @*@Html.ActionLink("Back to full list", "Index")*@
+</div>
+
 <script>
     AdaptForm = function ()
     {
@@ -106,5 +111,16 @@
             text.id = "select";
             form.insertBefore(text, form.firstChild);
         }
+
+        //AddBackLink();
+    }
+
+    AddBackLink = function()
+    {
+        var pos = document.getElementById("backLink");
+        var link = document.createElement("a");
+        link.setAttribute("href", "/");
+        link.innerHTML = "Back to full list";
+        pos.appendChild(link);
     }
 </script>
