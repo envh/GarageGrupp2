@@ -33,7 +33,7 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string searchProp, string searchValue)
         {
             if (id == null)
             {
@@ -44,6 +44,8 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 

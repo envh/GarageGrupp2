@@ -73,17 +73,14 @@
 
 <div>
     @{
-        string backToStr;
-        if (ViewBag.SearchProp == null)
+        string backToStr = "To " + ViewBag.SearchValue + " overview";
+        if (ViewBag.SearchProp != null)
         {
-            backToStr = "Back to full list";
-        }
-        else
-        {
-            backToStr = "Back to " + ViewBag.SearchValue + " list";
+            @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            <br />
         }
     }
-    @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+    @Html.ActionLink("To vehicle overview", "Index")
 </div>
 
 @section Scripts {

@@ -7,7 +7,7 @@
 <h2>Parked in Joe's Garage</h2>
 
 <p>
-    @Html.ActionLink("Park a new vehicle", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+    @Html.ActionLink("Park a vehicle", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
 </p>
 <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
     <option value="RegNo">Reg No</option>
@@ -74,7 +74,7 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue }) |
             @Html.ActionLink("Check out from Garage", "Delete", new { id=item.Id })
         </td>
     </tr>
@@ -86,7 +86,7 @@
     @{
         if (ViewBag.InsertLink)
         {
-            @Html.ActionLink("Back to full list", "Index")
+            @Html.ActionLink("To vehicle overview", "Index")
         }
     }
 </div>
