@@ -72,7 +72,18 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @{
+        string backToStr;
+        if (ViewBag.SearchProp == null)
+        {
+            backToStr = "Back to full list";
+        }
+        else
+        {
+            backToStr = "Back to " + ViewBag.SearchValue + " list";
+        }
+    }
+    @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
 </div>
 
 @section Scripts {

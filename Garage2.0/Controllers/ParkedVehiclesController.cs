@@ -26,6 +26,8 @@ namespace Garage2._0.Controllers
             {
                 ViewBag.InsertLink = true;
             }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             var ParkedVehicles = Filter(searchProp, searchValue);
             return View(ParkedVehicles.ToList());
         }
@@ -46,8 +48,10 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles/Create
-        public ActionResult Create()
+        public ActionResult Create(string searchProp, string searchValue)
         {
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View();
         }
 
@@ -56,16 +60,20 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle, string searchProp, string searchValue)
         {
             if (ModelState.IsValid)
             {
                 parkedVehicle.CheckInTime = DateTime.Now;
                 db.ParkedVehicles.Add(parkedVehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //ViewBag.SearchProp = searchProp;
+                //ViewBag.SearchValue = searchValue;
+                return RedirectToAction("Index", new { searchProp , searchValue });
             }
 
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 
