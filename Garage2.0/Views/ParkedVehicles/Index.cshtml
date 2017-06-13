@@ -40,7 +40,7 @@
             @Html.DisplayNameFor(model => model.AmountOfWheels)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CheckInTime)
+            Time Parked
         </th>
         <th></th>
     </tr>
@@ -66,7 +66,11 @@
             @Html.DisplayFor(modelItem => item.AmountOfWheels)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CheckInTime)
+            @{
+                var timeParked = DateTime.Now - item.CheckInTime;
+                string displayTime = timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
+            }
+            @displayTime
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
