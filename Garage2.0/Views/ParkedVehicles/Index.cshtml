@@ -24,16 +24,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RegNo)
+            @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNo"})
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.ActionLink("Type", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Type" })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Colour)
+            @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Colour" })
         </th>
         <th>
-            Time Parked
+            @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
         </th>
         <th></th>
     </tr>
@@ -90,7 +90,7 @@
         form.removeChild(document.getElementById("select"))
         if (document.getElementById("searchProp").value == "Type")
         {
-            var array = ["Car", "Bus", "Airplane", "Motorcycle", "Boat"]
+            var array = ["Airplane", "Boat", "Bus", "Car", "Motorcycle"]
             var select = document.createElement("select");
             select.name = "searchValue";
             select.id = "select";

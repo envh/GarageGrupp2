@@ -18,7 +18,7 @@ namespace Garage2._0.Controllers
         private Garage2_0Context db = new Garage2_0Context();
 
         // GET: ParkedVehicles
-        public ActionResult Index(string searchProp, string searchValue)
+        public ActionResult Index(string searchProp, string searchValue, string orderBy)
         {
             if (searchProp == null)
             {
@@ -31,6 +31,7 @@ namespace Garage2._0.Controllers
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
             var ParkedVehicles = Filter(searchProp, searchValue);
+            ParkedVehicles = Sort(orderBy, ParkedVehicles);
             return View(ParkedVehicles.ToList());
         }
 
@@ -146,7 +147,7 @@ namespace Garage2._0.Controllers
             return View(parkedVehicle);
         }
 
-        IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
+        private IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
         {
             var Vehicles = db.ParkedVehicles.Select(e => e);
             if (searchProp == "RegNo") Vehicles = Vehicles.Where(e => e.RegNo == searchValue);
@@ -160,8 +161,16 @@ namespace Garage2._0.Controllers
             else if (searchProp == "TimeParked")
             {
                 var dateTime = int.Parse(searchValue);
-                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now)%24 == dateTime+1) || (DbFunctions.DiffMinutes(e.CheckInTime, DateTime.Now)%60 == dateTime));
+                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now)%24 >= dateTime));
             }
+            return Vehicles;
+        }
+        private IQueryable<ParkedVehicle> Sort(string orderBy, IQueryable<ParkedVehicle> Vehicles)
+        {
+            if (orderBy == "RegNo") Vehicles = Vehicles.OrderBy(e => e.RegNo);
+            else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.Type);
+            else if (orderBy == "Colour") Vehicles = Vehicles.OrderBy(e => e.Colour);
+            else if (orderBy == "TimeParked") Vehicles = Vehicles.OrderBy(e => e.CheckInTime);
             return Vehicles;
         }
 
