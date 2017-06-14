@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.RegNo)
+            Registry number:
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            Type:
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Colour)
+            Colour:
         </dt>
 
         <dd>
@@ -35,7 +35,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Brand)
+            Brand:
         </dt>
 
         <dd>
@@ -43,7 +43,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Model)
+            Model:
         </dt>
 
         <dd>
@@ -51,7 +51,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AmountOfWheels)
+            Amount of wheels:
         </dt>
 
         <dd>
@@ -61,24 +61,30 @@
     </dl>
 </div>
 <p>
-        @{
-            string backToStr = "To " + ViewBag.SearchValue + " overview";
-            if (ViewBag.SearchProp != null)
+    <br />
+    @{
+        string backToStr = "";
+        if (ViewBag.SearchProp != null)
+        {
+            backToStr = "To " + ViewBag.SearchValue.ToLower() + " overview";
+            if (ViewBag.SearchProp == "Colour")
             {
-                if (ViewBag.SearchProp == "TimeParkedMore")
-                {
-                    backToStr = "To >" + ViewBag.SearchValue + " hours overview";
-                }
-                if (ViewBag.SearchProp == "TimeParkedLess")
-                {
-                    backToStr = "To <" + ViewBag.SearchValue + " hours overview";
-                }
-                <button>
-                    @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-                </button>
-                <br />
-                <br />
+                backToStr = "To " + ViewBag.SearchValue.ToLower() + " vehicles overview";
             }
+            if (ViewBag.SearchProp == "TimeParkedMore")
+            {
+                backToStr = "To >" + ViewBag.SearchValue.ToLower() + " hours overview";
+            }
+            if (ViewBag.SearchProp == "TimeParkedLess")
+            {
+                backToStr = "To <" + ViewBag.SearchValue.ToLower() + " hours overview";
+            }
+            <button>
+                @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            </button>
+            <br />
+            <br />
         }
-        <button>@Html.ActionLink("To vehicle overview", "Index")</button>
+    }
+    <button>@Html.ActionLink("To vehicle overview", "Index")</button>
 </p>
