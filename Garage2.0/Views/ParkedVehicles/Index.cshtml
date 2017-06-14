@@ -21,9 +21,13 @@
         {
             headline = ViewBag.SearchValue + " vehicles parked in Joe's Garage";
         }
-        if (ViewBag.SearchProp == "TimeParked")
+        if (ViewBag.SearchProp == "TimeParkedMore")
         {
             headline = "Vehicles in Joe's Garage for " + ViewBag.SearchValue + " hours or more";
+        }
+        if (ViewBag.SearchProp == "TimeParkedLess")
+        {
+            headline = "Vehicles in Joe's Garage for " + ViewBag.SearchValue + " hours or less";
         }
     }
 }
@@ -38,7 +42,8 @@
         <option value="RegNo">Registry Number</option>
         <option value="Type">Type</option>
         <option value="Colour">Colour</option>
-        <option value="TimeParked">Time Parked (hours)</option>
+        <option value="TimeParkedMore">Time Parked (> hours)</option>
+        <option value="TimeParkedLess">Time Parked (< hours)</option>
     </select>
     <br><div style="float: left;">Value:</div> 
     <form id="searchform" style="float:right;">
