@@ -6,20 +6,21 @@
 
 <h2>Parked in Joe's Garage</h2>
 
-<p>
-    @Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-</p>
-
-<select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
-    <option value="RegNo">Reg No</option>
-    <option value="Type">Type</option>
-    <option value="Colour">Colour</option>
-    <option value="TimeParked">Time Parked</option>
-</select>
-<form id="searchform">
-    <input name="searchValue" id="select" type="text" />
-    <input type="submit">
-</form>
+<button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
+<div id="searchBox">
+    <h3>Search</h3>
+    Property: <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
+        <option value="RegNo">Reg No</option>
+        <option value="Type">Type</option>
+        <option value="Colour">Colour</option>
+        <option value="TimeParked">Time Parked</option>
+    </select>
+    <br><div style="float: left;">Value:</div> 
+    <form id="searchform" style="float:right;">
+        <input name="searchValue" id="select" type="text" />
+        <input type="submit">
+    </form>
+</div>
 <table class="table">
     <tr>
         <th>
