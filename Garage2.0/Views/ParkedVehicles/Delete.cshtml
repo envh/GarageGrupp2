@@ -73,10 +73,13 @@
         string backToStr = "To " + ViewBag.SearchValue + " overview";
         if (ViewBag.SearchProp != null)
         {
-            @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            <button>
+                @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            </button>
+            <br />
             <br />
         }
     }
-    @Html.ActionLink("To vehicle overview", "Index")
-            
+    <button>@Html.ActionLink("To vehicle overview", "Index")</button>
+
 </div>

@@ -61,14 +61,16 @@
     </dl>
 </div>
 <p>
-    @{
-        string backToStr = "To " + ViewBag.SearchValue + " overview";
-        if (ViewBag.SearchProp != null)
-        {
-            @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-            <br />
+        @{
+            string backToStr = "To " + ViewBag.SearchValue + " overview";
+            if (ViewBag.SearchProp != null)
+            {
+                <button>
+                    @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+                </button>
+                <br />
+                <br />
+            }
         }
-    }
-    @Html.ActionLink("To vehicle overview", "Index")
-
+        <button>@Html.ActionLink("To vehicle overview", "Index")</button>
 </p>
