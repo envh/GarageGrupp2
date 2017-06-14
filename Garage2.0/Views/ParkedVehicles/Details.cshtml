@@ -61,24 +61,30 @@
     </dl>
 </div>
 <p>
-        @{
-            string backToStr = "To " + ViewBag.SearchValue + " overview";
-            if (ViewBag.SearchProp != null)
+    <br />
+    @{
+        string backToStr = "";
+        if (ViewBag.SearchProp != null)
+        {
+            backToStr = "To " + ViewBag.SearchValue.ToLower() + " overview";
+            if (ViewBag.SearchProp == "Colour")
             {
-                if (ViewBag.SearchProp == "TimeParkedMore")
-                {
-                    backToStr = "To >" + ViewBag.SearchValue + " hours overview";
-                }
-                if (ViewBag.SearchProp == "TimeParkedLess")
-                {
-                    backToStr = "To <" + ViewBag.SearchValue + " hours overview";
-                }
-                <button>
-                    @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-                </button>
-                <br />
-                <br />
+                backToStr = "To " + ViewBag.SearchValue.ToLower() + " vehicles overview";
             }
+            if (ViewBag.SearchProp == "TimeParkedMore")
+            {
+                backToStr = "To >" + ViewBag.SearchValue.ToLower() + " hours overview";
+            }
+            if (ViewBag.SearchProp == "TimeParkedLess")
+            {
+                backToStr = "To <" + ViewBag.SearchValue.ToLower() + " hours overview";
+            }
+            <button>
+                @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            </button>
+            <br />
+            <br />
         }
-        <button>@Html.ActionLink("To vehicle overview", "Index")</button>
+    }
+    <button>@Html.ActionLink("To vehicle overview", "Index")</button>
 </p>
