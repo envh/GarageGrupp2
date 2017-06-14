@@ -54,16 +54,44 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNo"})
+            @if (ViewBag.orderBy == "RegNo")
+            {
+                @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNoDesc"})
+            }
+            else
+            {
+                @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNo" })
+            }
         </th>
         <th>
-            @Html.ActionLink("Type", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Type" })
+            @if (ViewBag.orderBy == "Type")
+            {
+                @Html.ActionLink("Type", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TypeDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Type", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Type" })
+            }
         </th>
         <th>
-            @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Colour" })
+            @if (ViewBag.orderBy == "Colour")
+            {
+                @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "ColourDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Colour" })
+            }
         </th>
         <th>
-            @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
+            @if (ViewBag.orderBy == "TimeParked")
+            {
+                @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParkedDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
+            }
         </th>
         <th></th>
     </tr>

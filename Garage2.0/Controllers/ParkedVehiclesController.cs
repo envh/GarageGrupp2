@@ -30,6 +30,7 @@ namespace Garage2._0.Controllers
             }
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
+            ViewBag.orderBy = orderBy;
             var ParkedVehicles = Filter(searchProp, searchValue);
             ParkedVehicles = Sort(orderBy, ParkedVehicles);
             return View(ParkedVehicles.ToList());
@@ -173,9 +174,13 @@ namespace Garage2._0.Controllers
         private IQueryable<ParkedVehicle> Sort(string orderBy, IQueryable<ParkedVehicle> Vehicles)
         {
             if (orderBy == "RegNo") Vehicles = Vehicles.OrderBy(e => e.RegNo);
+            else if (orderBy == "RegNoDesc") Vehicles = Vehicles.OrderByDescending(e => e.RegNo);
             else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.Type);
+            else if (orderBy == "TypeDesc") Vehicles = Vehicles.OrderByDescending(e => e.Type);
             else if (orderBy == "Colour") Vehicles = Vehicles.OrderBy(e => e.Colour);
+            else if (orderBy == "ColourDesc") Vehicles = Vehicles.OrderByDescending(e => e.Colour);
             else if (orderBy == "TimeParked") Vehicles = Vehicles.OrderBy(e => e.CheckInTime);
+            else if (orderBy == "TimeParkedDesc") Vehicles = Vehicles.OrderByDescending(e => e.CheckInTime);
             return Vehicles;
         }
 
