@@ -118,6 +118,12 @@ namespace Garage2._0.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Receipt(int? id)
+        {
+            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
+            return View(parkedVehicle);
+        }
+
         IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
         {
             var Vehicles = db.ParkedVehicles.Select(e => e);

@@ -1,0 +1,52 @@
+﻿@model Garage2._0.Models.ParkedVehicle
+
+@{
+    ViewBag.Title = "Receipt";
+}
+
+<h1>Ticket</h1>
+
+@{
+
+    string[] months = new string[] { "Dummy", "January", "February", "march", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+    String came = "You Came:     " + Model.CheckInTime.DayOfWeek + " " + Model.CheckInTime.Day + " " + months[Model.CheckInTime.Month] + " " + Model.CheckInTime.Year;
+
+    System.DateTime toDay = System.DateTime.Now;
+
+    String checkOutTime = "To Day is it: " + toDay.DayOfWeek + " " + toDay.Day + " " + months[toDay.Month] + " " + toDay.Year;
+
+    System.TimeSpan diff = toDay.Subtract(Model.CheckInTime);
+
+    String parkedTime = "You been Parked " + diff.Days + " Day(s) " + diff.Hours + " Hours and " + diff.Minutes + " minutes";
+
+    int kost1, kost2, kost3, kost4;
+    kost1 = kost2 = kost3 = kost4 = 0;
+
+    if (diff.Days > 1)
+    {
+        kost4 = diff.Days * 310;
+    }
+
+    if (2.0 < diff.Hours && diff.Hours < 2.5)
+    {
+        kost1 = 125;
+    }
+
+    if (2.5 < diff.Hours && diff.Hours < 12)
+    {
+        kost3 = 170;
+    }
+
+    if (12.5 < diff.Hours && diff.Hours < 24)
+    {
+        kost2 = 170;
+    }
+
+    var totalCost = kost1 + kost2 + kost3 + kost4;
+
+    String parkedCost = "The Total cost is: " + totalCost + " kr";
+}
+<p>@came</p>
+<p>@checkOutTime</p>
+<p>@parkedTime</p>
+<p>@parkedCost</p>
