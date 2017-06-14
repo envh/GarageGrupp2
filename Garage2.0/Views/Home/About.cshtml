@@ -1,7 +1,50 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿
+<h1>price list for parking</h1>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    table#t01 {
+    width: 100%;    
+    background-color: #f1f1c1;
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+    <table id="t01">
+        <tr>
+            <th>  Parking Time  </th>
+            <th>  Costs  </th>
+        </tr>
+        <tr>
+            <td>00 hr	-> 02:00 hr  </td>
+            <td> Cost   0 &euro;  </td>
+        </tr>
+        <tr>
+            <td>02 hr	-> 02:30 hr  </td>
+            <td>Cost 125 &euro;  </td>
+        </tr>
+        <tr>
+            <td>02:30 	-> 12:00 hr  </td>
+            <td>Cost 170 &euro;  </td>
+        </tr>
+        <tr>
+            <td>12:00    -> 12:30 hr  </td>
+            <td>Cost 275 &euro;  </td>
+        </tr>
+        <tr>
+            <td>12:30    -> 24:00 hr  </td>
+            <td>Cost 310 &euro;  </td>
+        </tr>
+    </table>
+</body>
