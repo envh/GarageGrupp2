@@ -128,7 +128,7 @@ namespace Garage2._0.Controllers
         }
 
         // POST: ParkedVehicles/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("Receipt")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
         {
@@ -138,9 +138,11 @@ namespace Garage2._0.Controllers
             return RedirectToAction("Index", new { searchProp, searchValue });
         }
 
-        public ActionResult Receipt(int? id)
+        public ActionResult Receipt(int? id, string searchProp, string searchValue)
         {
             ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 

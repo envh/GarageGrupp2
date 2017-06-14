@@ -50,3 +50,14 @@
 <p>@checkOutTime</p>
 <p>@parkedTime</p>
 <p>@parkedCost</p>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        
+        <input type="submit" value="Pay" class="btn btn-default" />
+    </div>
+}
+
