@@ -69,8 +69,6 @@ namespace Garage2._0.Controllers
                 parkedVehicle.CheckInTime = DateTime.Now;
                 db.ParkedVehicles.Add(parkedVehicle);
                 db.SaveChanges();
-                //ViewBag.SearchProp = searchProp;
-                //ViewBag.SearchValue = searchValue;
                 return RedirectToAction("Index", new { searchProp , searchValue });
             }
 
@@ -111,7 +109,7 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string searchProp, string searchValue)
         {
             if (id == null)
             {
@@ -122,18 +120,20 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 
         // POST: ParkedVehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
         {
             ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
             db.ParkedVehicles.Remove(parkedVehicle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { searchProp, searchValue });
         }
 
         IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
