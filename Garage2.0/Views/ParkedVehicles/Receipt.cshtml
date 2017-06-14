@@ -22,22 +22,22 @@
 
     if (diff.Days > 1)
     {
-        kost4 = diff.Days * 310;
+        kost4 = diff.Days * 31;
     }
 
     if (2.0 < diff.Hours && diff.Hours < 2.5)
     {
-        kost1 = 125;
+        kost1 = 12;
     }
 
     if (2.5 < diff.Hours && diff.Hours < 12)
     {
-        kost3 = 170;
+        kost3 = 17;
     }
 
     if (12.5 < diff.Hours && diff.Hours < 24)
     {
-        kost2 = 170;
+        kost2 = 27;
     }
 
     var totalCost = kost1 + kost2 + kost3 + kost4;
