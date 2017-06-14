@@ -161,7 +161,7 @@ namespace Garage2._0.Controllers
             else if (searchProp == "TimeParked")
             {
                 var dateTime = int.Parse(searchValue);
-                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now)%24 >= dateTime));
+                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now) >= dateTime));
             }
             return Vehicles;
         }
