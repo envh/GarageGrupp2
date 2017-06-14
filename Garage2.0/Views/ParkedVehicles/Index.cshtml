@@ -7,13 +7,13 @@
 <h2>Parked in Joe's Garage</h2>
 
 <p>
-    @Html.ActionLink("Park a vehicle", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+    @Html.ActionLink("Check in a vehicle", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
 </p>
 <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
     <option value="RegNo">Reg No</option>
     <option value="Type">Type</option>
     <option value="Colour">Colour</option>
-    <option value="CheckInTime">Check In Time</option>
+    <option value="TimeParked">Time Parked</option>
 </select>
 <form id="searchform">
     <input name="searchValue" id="select" type="text" />
@@ -29,15 +29,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Colour)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountOfWheels)
         </th>
         <th>
             Time Parked
@@ -57,18 +48,14 @@
             @Html.DisplayFor(modelItem => item.Colour)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Brand)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountOfWheels)
-        </td>
-        <td>
             @{
                 var timeParked = DateTime.Now - item.CheckInTime;
-                string displayTime = timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
+                string displayTime = "";
+                if (timeParked.Days > 0)
+                {
+                    displayTime = displayTime + timeParked.Days + " days ";
+                }
+                displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
             }
             @displayTime
         </td>
