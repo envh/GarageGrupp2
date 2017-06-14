@@ -31,3 +31,11 @@ select
 {
     min-width: 170px;
 }
+.button-link
+{
+    float: left;
+}
+a:hover
+{
+    text-decoration: none;
+}

@@ -6,19 +6,21 @@
 
 <h2>Parked in Joe's Garage</h2>
 
-<p>
-    @Html.ActionLink("Park a new Vehicle", "Create")
-</p>
-<select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
-    <option value="RegNo">Reg No</option>
-    <option value="Type">Type</option>
-    <option value="Colour">Colour</option>
-    <option value="CheckInTime">Check In Time</option>
-</select>
-<form id="searchform">
-    <input name="searchValue" id="select" type="text" />
-    <input type="submit" onsubmit="AddBackLink()">
-</form>
+<button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
+<div id="searchBox">
+    <h3>Search</h3>
+    Property: <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
+        <option value="RegNo">Reg No</option>
+        <option value="Type">Type</option>
+        <option value="Colour">Colour</option>
+        <option value="TimeParked">Time Parked</option>
+    </select>
+    <br><div style="float: left;">Value:</div> 
+    <form id="searchform" style="float:right;">
+        <input name="searchValue" id="select" type="text" />
+        <input type="submit">
+    </form>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -31,16 +33,7 @@
             @Html.DisplayNameFor(model => model.Colour)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Model)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AmountOfWheels)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CheckInTime)
+            Time Parked
         </th>
         <th></th>
     </tr>
@@ -57,21 +50,24 @@
             @Html.DisplayFor(modelItem => item.Colour)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Brand)
+            @{
+                var timeParked = DateTime.Now - item.CheckInTime;
+                string displayTime = "";
+                if (timeParked.Days > 0)
+                {
+                    displayTime = displayTime + timeParked.Days + " days ";
+                }
+                displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
+            }
+            @displayTime
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Model)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AmountOfWheels)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheckInTime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Check out from Garage", "Delete", new { id=item.Id })
+            <button>
+                @Html.ActionLink("Details", "Details", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            </button>
+            <button>
+                @Html.ActionLink("Check out", "Delete", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+            </button>
         </td>
     </tr>
 }
@@ -79,7 +75,12 @@
 </table>
 
 <div id="backLink">
-    @*@Html.ActionLink("Back to full list", "Index")*@
+    @{
+        if (ViewBag.InsertLink)
+        {
+            <button>@Html.ActionLink("To vehicle overview", "Index")</button>
+        }
+    }
 </div>
 
 <script>
@@ -111,16 +112,14 @@
             text.id = "select";
             form.insertBefore(text, form.firstChild);
         }
-
-        //AddBackLink();
     }
 
-    AddBackLink = function()
-    {
-        var pos = document.getElementById("backLink");
-        var link = document.createElement("a");
-        link.setAttribute("href", "/");
-        link.innerHTML = "Back to full list";
-        pos.appendChild(link);
-    }
+    //AddBackLink = function()
+    //{
+    //    var pos = document.getElementById("backLink");
+    //    var link = document.createElement("a");
+    //    link.setAttribute("href", "/");
+    //    link.innerHTML = "Back to full list";
+    //    pos.appendChild(link);
+    //}
 </script>

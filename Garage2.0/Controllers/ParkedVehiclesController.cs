@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Garage2._0.DataAccessLayer;
 using Garage2._0.Models;
+using System.Data.Entity.SqlServer;
+using System.Data.Entity.Core.Objects;
 
 namespace Garage2._0.Controllers
 {
@@ -18,12 +20,22 @@ namespace Garage2._0.Controllers
         // GET: ParkedVehicles
         public ActionResult Index(string searchProp, string searchValue)
         {
+            if (searchProp == null)
+            {
+                ViewBag.InsertLink = false;
+            }
+            else
+            {
+                ViewBag.InsertLink = true;
+            }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             var ParkedVehicles = Filter(searchProp, searchValue);
             return View(ParkedVehicles.ToList());
         }
 
         // GET: ParkedVehicles/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string searchProp, string searchValue)
         {
             if (id == null)
             {
@@ -34,12 +46,16 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 
         // GET: ParkedVehicles/Create
-        public ActionResult Create()
+        public ActionResult Create(string searchProp, string searchValue)
         {
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View();
         }
 
@@ -48,16 +64,18 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle, string searchProp, string searchValue)
         {
             if (ModelState.IsValid)
             {
                 parkedVehicle.CheckInTime = DateTime.Now;
                 db.ParkedVehicles.Add(parkedVehicle);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { searchProp , searchValue });
             }
 
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 
@@ -93,7 +111,7 @@ namespace Garage2._0.Controllers
         }
 
         // GET: ParkedVehicles/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int? id, string searchProp, string searchValue)
         {
             if (id == null)
             {
@@ -104,18 +122,20 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
             return View(parkedVehicle);
         }
 
         // POST: ParkedVehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
         {
             ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
             db.ParkedVehicles.Remove(parkedVehicle);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { searchProp, searchValue });
         }
 
         public ActionResult Receipt(int? id)
@@ -135,7 +155,11 @@ namespace Garage2._0.Controllers
 
             }
             else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
-            //else if (searchProp == "CheckInTime") Vehicles = Vehicles.Where(e => e.CheckInTime == searchValue);
+            else if (searchProp == "TimeParked")
+            {
+                var dateTime = int.Parse(searchValue);
+                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now)%24 == dateTime+1) || (DbFunctions.DiffMinutes(e.CheckInTime, DateTime.Now)%60 == dateTime));
+            }
             return Vehicles;
         }
 

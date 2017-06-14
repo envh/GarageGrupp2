@@ -72,7 +72,17 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @{
+        string backToStr = "To " + ViewBag.SearchValue + " overview";
+        if (ViewBag.SearchProp != null)
+        {
+            <button>
+            @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
+            <br />
+            <br />
+        }
+    }
+    <button>@Html.ActionLink("To vehicle overview", "Index")</button>
 </div>
 
 @section Scripts {
