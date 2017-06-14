@@ -42,27 +42,29 @@
 
     var totalCost = kost1 + kost2 + kost3 + kost4;
 
-    String parkedCost = "The Total cost is: " + totalCost + " kr";
+    String parkedCost = "The Total cost is: " + totalCost + " euro;";
 }
 <style>
     p.double {
+        font-size: 120%;
+        text-align: justify; 
         border-style: double;
+        color: blue;
+}   
     }
 </style>
 
 <h1>Ticket</h1>
-<p class="double"><br><b>@came</b><br><b>@checkOutTime</b><br><b>@parkedTime</b><br><br><b>@parkedCost</b><br><br></p>
-@*<p></p>
-<p></p>
-<p></p>
-<p><</p>*@
+<p class="double">
+<br><b>@came</b><br><b>@checkOutTime</b><br><b>@parkedTime</b><br><br><b>@parkedCost</b><br><br>
+</p>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-actions no-color">
-        
+
         <input type="submit" value="Pay" class="btn btn-default" />
     </div>
 }
