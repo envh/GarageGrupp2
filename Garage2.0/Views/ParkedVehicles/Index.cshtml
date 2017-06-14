@@ -2,9 +2,34 @@
 
 @{
     ViewBag.Title = "Index";
+    String headline = "";
+    if (ViewBag.SearchProp == null)
+    {
+        headline = "Vehicles parked in Joe's Garage";
+    }
+    else
+    {
+        if (ViewBag.SearchProp == "RegNo")
+        {
+            headline = "Request for " + ViewBag.SearchValue + " in Joe's Garage";
+        }
+        if (ViewBag.SearchProp == "Type")
+        {
+            headline = ViewBag.SearchValue + "s parked in Joe's Garage";
+        }
+        if (ViewBag.SearchProp == "Colour")
+        {
+            headline = ViewBag.SearchValue + " vehicles parked in Joe's Garage";
+        }
+        if (ViewBag.SearchProp == "TimeParked")
+        {
+            headline = "Vehicles parked in Joe's Garage longer than " + ViewBag.SearchValue;
+        }
+    }
 }
 
-<h2>Parked in Joe's Garage</h2>
+@*<h2>Parked in Joe's Garage</h2>*@
+<h2>@headline</h2>
 
 <button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
 <div id="searchBox">
