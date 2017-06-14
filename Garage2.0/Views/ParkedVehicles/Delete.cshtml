@@ -65,10 +65,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <button>
-                @Html.ActionLink("Confirm", "Receipt", new { id = Model.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-            </button>
-            @*<input type="submit" value="Check out" class="btn btn-default" />*@
+            <input type="submit" value="Check out" class="btn btn-default" />
         </div>
     }
     <br />
