@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using Garage2._0.DataAccessLayer;
 using Garage2._0.Models;
+using System.Data.Entity.SqlServer;
+using System.Data.Entity.Core.Objects;
 
 namespace Garage2._0.Controllers
 {
@@ -147,10 +149,10 @@ namespace Garage2._0.Controllers
 
             }
             else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
-            else if (searchProp == "CheckInTime")
+            else if (searchProp == "TimeParked")
             {
                 var dateTime = int.Parse(searchValue);
-                Vehicles = Vehicles.Where(e => (e.CheckInTime.Hour == dateTime) || (e.CheckInTime.Minute == dateTime));
+                Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now)%24 == dateTime+1) || (DbFunctions.DiffMinutes(e.CheckInTime, DateTime.Now)%60 == dateTime));
             }
             return Vehicles;
         }
