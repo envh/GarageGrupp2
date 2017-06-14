@@ -2,11 +2,15 @@
 
 @{
     ViewBag.Title = "Delete";
+    String headline = "Check out " + Model.RegNo + " from Joe's Garage";
+    //String thisType = "" + Model.Type;
+    //thisType = thisType.ToLower();
+    String question = "Are you sure you want to check out this " + Model.Type.ToString().ToLower() + "?";
 }
 
-<h2>Remove from Garage</h2>
+<h2>@headline</h2>
 
-<h3>Are you sure you want to check out this vehicle?</h3>
+<h3>@question</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -76,6 +80,14 @@
         string backToStr = "To " + ViewBag.SearchValue + " overview";
         if (ViewBag.SearchProp != null)
         {
+            if (ViewBag.SearchProp == "TimeParkedMore")
+            {
+                backToStr = "To >" + ViewBag.SearchValue + " hours overview";
+            }
+            if (ViewBag.SearchProp == "TimeParkedLess")
+            {
+                backToStr = "To <" + ViewBag.SearchValue + " hours overview";
+            }
             <button>
                 @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
             </button>

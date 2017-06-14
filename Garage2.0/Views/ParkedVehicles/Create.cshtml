@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Check in menu</h2>
+<h2>Check in to Joe's Garage</h2>
 
 
 @using (Html.BeginForm()) 
@@ -75,6 +75,14 @@
         string backToStr = "To " + ViewBag.SearchValue + " overview";
         if (ViewBag.SearchProp != null)
         {
+            if (ViewBag.SearchProp == "TimeParkedMore")
+            {
+                backToStr = "To >" + ViewBag.SearchValue + " hours overview";
+            }
+            if (ViewBag.SearchProp == "TimeParkedLess")
+            {
+                backToStr = "To <" + ViewBag.SearchValue + " hours overview";
+            }
             <button>
             @Html.ActionLink(backToStr, "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
             <br />
