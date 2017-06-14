@@ -11,7 +11,7 @@
     {
         if (ViewBag.SearchProp == "RegNo")
         {
-            headline = "Request for " + ViewBag.SearchValue + " in Joe's Garage";
+            headline = "Vehicle " + ViewBag.SearchValue + " in Joe's Garage";
         }
         if (ViewBag.SearchProp == "Type")
         {
@@ -23,7 +23,7 @@
         }
         if (ViewBag.SearchProp == "TimeParked")
         {
-            headline = "Vehicles parked in Joe's Garage longer than " + ViewBag.SearchValue;
+            headline = "Vehicles in Joe's Garage for " + ViewBag.SearchValue + " hours or more";
         }
     }
 }
