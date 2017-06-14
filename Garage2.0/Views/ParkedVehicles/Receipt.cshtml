@@ -4,8 +4,6 @@
     ViewBag.Title = "Receipt";
 }
 
-<h1>Ticket</h1>
-
 @{
 
     string[] months = new string[] { "Dummy", "January", "February", "march", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
@@ -46,10 +44,18 @@
 
     String parkedCost = "The Total cost is: " + totalCost + " kr";
 }
-<p>@came</p>
-<p>@checkOutTime</p>
-<p>@parkedTime</p>
-<p>@parkedCost</p>
+<style>
+    p.double {
+        border-style: double;
+    }
+</style>
+
+<h1>Ticket</h1>
+<p class="double"><br><b>@came</b><br><b>@checkOutTime</b><br><b>@parkedTime</b><br><br><b>@parkedCost</b><br><br></p>
+@*<p></p>
+<p></p>
+<p></p>
+<p><</p>*@
 
 @using (Html.BeginForm())
 {
