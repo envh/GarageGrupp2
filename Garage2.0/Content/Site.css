@@ -32,6 +32,11 @@
     padding-right: 15px;
 }
 
+#visit-image {
+    width: 85%;
+    height: 60%
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
