@@ -40,18 +40,20 @@
 
 <button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
 <div id="searchBox">
-    <h3>Search</h3>
-    Property: <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
+    <h4 style="text-align:center;">Search</h4>
+    <span>Property:</span> <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
         <option value="RegNo">Registry Number</option>
         <option value="Type">Type</option>
         <option value="Colour">Colour</option>
         <option value="TimeParkedMore">Time Parked (> hours)</option>
         <option value="TimeParkedLess">Time Parked (< hours)</option>
     </select>
-    <br><div style="float: left;">Value:</div> 
+    <br>
+    <span style="float: left;">Value:</span> 
     <form id="searchform" style="float:right;">
         <input name="searchValue" id="select" type="text" />
-        <input type="submit">
+        <br />
+        <input type="submit" style="margin-top: 1px;">
     </form>
 </div>
 <table class="table">
