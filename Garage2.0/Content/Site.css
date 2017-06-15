@@ -50,6 +50,7 @@ textarea {
 {
     float:right;
     margin-bottom: 3vh;
+    text-align: right;
 }
 select
 {
