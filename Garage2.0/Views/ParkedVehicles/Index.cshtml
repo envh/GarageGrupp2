@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Garage2._0.Models.ParkedVehicle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "";
     String headline = "";
     if (ViewBag.SearchProp == null)
     {
@@ -36,7 +36,6 @@
     }
 }
 
-@*<h2>Parked in Joe's Garage</h2>*@
 <h2>@headline</h2>
 
 <button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
@@ -60,11 +59,11 @@
         <th>
             @if (ViewBag.orderBy == "RegNo")
             {
-                @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNoDesc"})
+                @Html.ActionLink("Registry number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNoDesc"})
             }
             else
             {
-                @Html.ActionLink("Registry Number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNo" })
+                @Html.ActionLink("Registry number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNo" })
             }
         </th>
         <th>
@@ -90,11 +89,11 @@
         <th>
             @if (ViewBag.orderBy == "TimeParked")
             {
-                @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParkedDesc" })
+                @Html.ActionLink("Parking time", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParkedDesc" })
             }
             else
             {
-                @Html.ActionLink("Time Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
+                @Html.ActionLink("Parking time", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
             }
         </th>
         <th></th>
