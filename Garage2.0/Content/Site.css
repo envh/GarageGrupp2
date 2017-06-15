@@ -39,3 +39,11 @@ a:hover
 {
     text-decoration: none;
 }
+input
+{
+    color: #428bca;
+}
+input:hover
+{
+    color: #2a6496;
+}
