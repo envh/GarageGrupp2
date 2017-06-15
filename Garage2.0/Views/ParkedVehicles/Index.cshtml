@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Garage2._0.Models.ParkedVehicle>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "";
     String headline = "";
     if (ViewBag.SearchProp == null)
     {
@@ -36,7 +36,6 @@
     }
 }
 
-@*<h2>Parked in Joe's Garage</h2>*@
 <h2>@headline</h2>
 
 <button class="button-link">@Html.ActionLink("Check in", "Create", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
