@@ -3,6 +3,29 @@
     padding-bottom: 20px;
 }
 
+.body-main {
+    background-size:cover;
+    background-image: url("wall.jpg");
+}
+
+.head-image {
+    width: 100%;
+    height: 300px;
+}
+
+#head-image {
+    color:azure;
+    text-align:center;
+    font-style:italic;
+    font-size: 100px;
+    background-image: url("garage.jpg");
+    background-size:cover;
+    padding-top:90px;
+    padding-bottom:80px;
+    padding-left: 400px;
+    padding-right: 200px;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
