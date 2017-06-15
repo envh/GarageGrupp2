@@ -33,6 +33,8 @@ namespace Garage2._0.Controllers
             ViewBag.orderBy = orderBy;
             var ParkedVehicles = Filter(searchProp, searchValue);
             ParkedVehicles = Sort(orderBy, ParkedVehicles);
+            if (!ParkedVehicles.Any()) ViewBag.empty = true;
+            else ViewBag.empty = false;
             return View(ParkedVehicles.ToList());
         }
 
@@ -66,19 +68,19 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle, string searchProp, string searchValue)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle Vehicle, string searchProp, string searchValue)
         {
             if (ModelState.IsValid)
             {
-                parkedVehicle.CheckInTime = DateTime.Now;
-                db.ParkedVehicles.Add(parkedVehicle);
+                Vehicle.CheckInTime = DateTime.Now;
+                db.ParkedVehicles.Add(Vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { searchProp , searchValue });
             }
 
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
-            return View(parkedVehicle);
+            return View(Vehicle);
         }
 
         // GET: ParkedVehicles/Edit/5

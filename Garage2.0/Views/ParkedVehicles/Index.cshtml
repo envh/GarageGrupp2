@@ -7,6 +7,10 @@
     {
         headline = "Vehicles parked in Joe's Garage";
     }
+    else if (ViewBag.empty)
+    {
+        headline = "No vehicles found";
+    }
     else
     {
         if (ViewBag.SearchProp == "RegNo")

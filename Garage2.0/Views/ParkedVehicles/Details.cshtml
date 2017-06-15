@@ -57,7 +57,27 @@
         <dd>
             @Html.DisplayFor(model => model.AmountOfWheels)
         </dd>
-
+        <dt>
+            Check in time: 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CheckInTime)
+        </dd>
+        <dt>
+            Time parked: 
+        </dt>
+        <dd>
+            @{
+                var timeParked = DateTime.Now - Model.CheckInTime;
+                string displayTime = "";
+                if (timeParked.Days > 0)
+                {
+                    displayTime = displayTime + timeParked.Days + " days ";
+                }
+                displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
+            }
+            @displayTime
+        </dd>
     </dl>
 </div>
 <p>
