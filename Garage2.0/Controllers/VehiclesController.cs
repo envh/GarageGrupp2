@@ -13,7 +13,7 @@ using System.Data.Entity.Core.Objects;
 
 namespace Garage2._0.Controllers
 {
-    public class ParkedVehiclesController : Controller
+    public class VehiclesController : Controller
     {
         private Garage2_0Context db = new Garage2_0Context();
 
@@ -45,14 +45,14 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
-            if (parkedVehicle == null)
+            Vehicle Vehicle = db.Vehicles.Find(id);
+            if (Vehicle == null)
             {
                 return HttpNotFound();
             }
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
-            return View(parkedVehicle);
+            return View(Vehicle);
         }
 
         // GET: ParkedVehicles/Create
@@ -68,12 +68,12 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle Vehicle, string searchProp, string searchValue)
+        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] Vehicle Vehicle, string searchProp, string searchValue)
         {
             if (ModelState.IsValid)
             {
                 Vehicle.CheckInTime = DateTime.Now;
-                db.ParkedVehicles.Add(Vehicle);
+                db.Vehicles.Add(Vehicle);
                 db.SaveChanges();
                 return RedirectToAction("Index", new { searchProp , searchValue });
             }
@@ -90,12 +90,12 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
-            if (parkedVehicle == null)
+            Vehicle Vehicle = db.Vehicles.Find(id);
+            if (Vehicle == null)
             {
                 return HttpNotFound();
             }
-            return View(parkedVehicle);
+            return View(Vehicle);
         }
 
         // POST: ParkedVehicles/Edit/5
@@ -103,15 +103,15 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] ParkedVehicle parkedVehicle)
+        public ActionResult Edit([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] Vehicle Vehicle)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(parkedVehicle).State = EntityState.Modified;
+                db.Entry(Vehicle).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(parkedVehicle);
+            return View(Vehicle);
         }
 
         // GET: ParkedVehicles/Delete/5
@@ -121,7 +121,7 @@ namespace Garage2._0.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
+            Vehicle parkedVehicle = db.Vehicles.Find(id);
             if (parkedVehicle == null)
             {
                 return HttpNotFound();
@@ -136,23 +136,25 @@ namespace Garage2._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
         {
-            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
-            db.ParkedVehicles.Remove(parkedVehicle);
+            Vehicle Vehicle = db.Vehicles.Find(id);
+            db.Vehicles.Remove(Vehicle);
             db.SaveChanges();
             return RedirectToAction("Index", new { searchProp, searchValue });
         }
 
         public ActionResult Receipt(int? id, string searchProp, string searchValue)
         {
-            ParkedVehicle parkedVehicle = db.ParkedVehicles.Find(id);
+            Vehicle Vehicle = db.Vehicles.Find(id);
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
-            return View(parkedVehicle);
+            return View(Vehicle);
         }
 
-        private IQueryable<ParkedVehicle> Filter(string searchProp, string searchValue)
+        private IQueryable<Vehicle> Filter(string searchProp, string searchValue)
         {
-            var Vehicles = db.ParkedVehicles.Select(e => e);
+            
+            var Vehicles = db.Vehicles.Select(e => e);
+            /*
             if (searchProp == "RegNo") Vehicles = Vehicles.Where(e => e.RegNo == searchValue);
             else if (searchProp == "Type")
             {
@@ -171,14 +173,15 @@ namespace Garage2._0.Controllers
                 int dateTime;
                 if(int.TryParse(searchValue, out dateTime)) Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now) <= dateTime));
             }
+            */
             return Vehicles;
         }
-        private IQueryable<ParkedVehicle> Sort(string orderBy, IQueryable<ParkedVehicle> Vehicles)
+        private IQueryable<Vehicle> Sort(string orderBy, IQueryable<Vehicle> Vehicles)
         {
-            if (orderBy == "RegNo") Vehicles = Vehicles.OrderBy(e => e.RegNo);
-            else if (orderBy == "RegNoDesc") Vehicles = Vehicles.OrderByDescending(e => e.RegNo);
-            else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.Type);
-            else if (orderBy == "TypeDesc") Vehicles = Vehicles.OrderByDescending(e => e.Type);
+            if (orderBy == "RegNo") Vehicles = Vehicles.OrderBy(e => e.RegNumber);
+            else if (orderBy == "RegNoDesc") Vehicles = Vehicles.OrderByDescending(e => e.RegNumber);
+            //else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.Type);
+            //else if (orderBy == "TypeDesc") Vehicles = Vehicles.OrderByDescending(e => e.Type);
             else if (orderBy == "Colour") Vehicles = Vehicles.OrderBy(e => e.Colour);
             else if (orderBy == "ColourDesc") Vehicles = Vehicles.OrderByDescending(e => e.Colour);
             else if (orderBy == "TimeParked") Vehicles = Vehicles.OrderBy(e => e.CheckInTime);
