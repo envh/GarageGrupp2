@@ -7,42 +7,43 @@
 @{
 
     string[] months = new string[] { "Dummy", "January", "February", "march", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
-    String came = "You came:     " + Model.CheckInTime.DayOfWeek + " " + Model.CheckInTime.Day + " " + months[Model.CheckInTime.Month] + " " + Model.CheckInTime.Year + " at " + Model.CheckInTime.Hour + ":" + Model.CheckInTime.Minute;
+    string came = "You came:     " + Model.CheckInTime.DayOfWeek + " " + Model.CheckInTime.Day + " " + months[Model.CheckInTime.Month] + " " + Model.CheckInTime.Year + " at " + Model.CheckInTime.Hour + ":" + Model.CheckInTime.Minute;
 
     System.DateTime toDay = System.DateTime.Now;
 
-    String checkOutTime = "To day it is : " + toDay.DayOfWeek + " " + toDay.Day + " " + months[toDay.Month] + " " + toDay.Year + " at " + toDay.Hour + ":" + toDay.Minute;
+    string checkOutTime = "To day it is : " + toDay.DayOfWeek + " " + toDay.Day + " " + months[toDay.Month] + " " + toDay.Year + " at " + toDay.Hour + ":" + toDay.Minute;
 
     System.TimeSpan diff = toDay.Subtract(Model.CheckInTime);
 
-    String parkedTime = "You been parked: " + diff.Days + " day(s) " + diff.Hours + " hours and " + diff.Minutes + " minutes";
+    string parkedTime = "You been parked: " + diff.Days + " day(s) " + diff.Hours + " hours and " + diff.Minutes + " minutes";
 
-    int kost1, kost2, kost3, kost4;
-    kost1 = kost2 = kost3 = kost4 = 0;
+    int kost1, kost4;
+    kost1 =  kost4 = 0;
 
-    if (diff.Days > 1)
-    {
-        kost4 = diff.Days * 31;
-    }
+    
+   kost4 = diff.Days * 31;
 
-    if (2.0 < diff.Hours && diff.Hours < 2.5 )
+    if (2 <= diff.Hours)
     {
         kost1 = 12;
+        if (30 < (diff.Hours-2)*60 + diff.Minutes)
+        {
+            kost1 += 5;
+        }
     }
 
-    if (2.5 < diff.Hours && diff.Hours < 12)
+    if (12 <= diff.Hours)
     {
-        kost3 = 17;
+        kost1 = 27;
+        if (30 < (diff.Hours - 12) * 60 + diff.Minutes)
+        {
+            kost1 += 4;
+        }
     }
 
-    if (12.5 < diff.Hours && diff.Hours < 24)
-    {
-        kost2 = 27;
-    }
+    var totalCost = kost1 + kost4;
 
-    var totalCost = kost1 + kost2 + kost3 + kost4;
-
-    String parkedCost = "The total cost is: " + totalCost + " €";
+    string parkedCost = "The total cost is: " + totalCost + " €";
 }
 <style>
     p.double {
