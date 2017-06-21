@@ -1,0 +1,86 @@
+﻿@model IEnumerable<Garage2._0.Models.Vehicle>
+
+@{
+    ViewBag.Title = "FullView";
+}
+
+<h2>Detail view</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RegNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Name)
+        </th>
+        <th>
+            Membership
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleType.VehicleSort)
+        <th>
+            @Html.DisplayNameFor(model => model.CheckInTime)
+        </th>
+        <th>
+            Time parked
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParkingSlot)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleType.TransportMedium)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleType.Wheels)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Colour)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Name)
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Member.Status)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleType.VehicleSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckInTime)
+            </td>
+            <td>
+                @{
+                    var timeParked = DateTime.Now - item.CheckInTime;
+                    string displayTime = "";
+                    if (timeParked.Days > 0)
+                    {
+                        displayTime = displayTime + timeParked.Days + " days ";
+                    }
+                    displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
+                }
+                @displayTime
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkingSlot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleType.TransportMedium)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleType.Wheels)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Colour)
+            </td>
+        </tr>
+    }
+
+</table>
+<button>@Html.ActionLink("To vehicle overview", "Index")</button>

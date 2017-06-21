@@ -1,9 +1,9 @@
-﻿@model Garage2._0.Models.ParkedVehicle
+﻿@model Garage2._0.Models.Vehicle
 
 @{
     ViewBag.Title = "Delete";
-    String headline = "Check out " + Model.RegNo + " from Joe's Garage";
-    String question = "Are you sure you want to check out this " + Model.Type.ToString().ToLower() + "?";
+    String headline = "Check out " + Model.RegNumber + " from Joe's Garage";
+    String question = "Are you sure you want to check out this " + Model.VehicleType.VehicleSort.ToString().ToLower() + "?";
 }
 
 <h2>@headline</h2>
@@ -17,7 +17,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.RegNo)
+            @Html.DisplayFor(model => model.RegNumber)
         </dd>
 
         <dt>
@@ -25,7 +25,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.VehicleType.VehicleSort)
         </dd>
 
         <dt>
@@ -37,27 +37,11 @@
         </dd>
 
         <dt>
-            Brand:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Brand)
-        </dd>
-
-        <dt>
-            Model:
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-
-        <dt>
             Amount of wheels:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.AmountOfWheels)
+            @Html.DisplayFor(model => model.VehicleType.Wheels)
         </dd>
         <dt>
             Check in time:

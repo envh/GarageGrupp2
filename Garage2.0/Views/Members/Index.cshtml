@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Garage2._0.Models.Member>
+
+@{
+    ViewBag.Title = "Members at Joe's Garage";
+}
+
+<h2>Members at Joe's Garage</h2>
+<button class="button-link"> @Html.ActionLink("Register member", "Create")</button>
+<div id="searchBox">
+    <h4 style="text-align:center;">Search</h4>
+    <span style="float: left;">Value:</span>
+    <form id="searchform" style="float:right;">
+        <input name="searchValue" id="select" type="text" />
+        <br />
+        <input type="submit" style="margin-top: 1px;">
+    </form>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Invoice Cost
+        </th>
+        <th>
+            Current Parking Cost
+        </th>
+        <th>
+            Membership
+        </th>
+        <th>Number of parked vehicles</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentParkingCost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.Vehicles.Count)</td>
+            <td>
+                <button>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</button>
+                <button>@Html.ActionLink("Details", "Details", new { id = item.Id })</button>
+                <button>@Html.ActionLink("Remove member", "Delete", new { id = item.Id })</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="backLink">
+    @{
+        if (ViewBag.InsertLink)
+        {
+            <button>@Html.ActionLink("To member overview", "Index")</button>
+        }
+    }
+</div>

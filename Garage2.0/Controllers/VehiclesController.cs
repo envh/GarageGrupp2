@@ -38,6 +38,12 @@ namespace Garage2._0.Controllers
             return View(ParkedVehicles.ToList());
         }
 
+        public ActionResult FullView()
+        {
+            var ParkedVehicles = db.Vehicles.Select(v => v);
+            return View(ParkedVehicles.ToList());
+        }
+
         // GET: ParkedVehicles/Details/5
         public ActionResult Details(int? id, string searchProp, string searchValue)
         {
@@ -60,6 +66,10 @@ namespace Garage2._0.Controllers
         {
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
+            var VehicleTypes = db.VehicleTypes.Select(t => t);
+            var Members = db.Members.Select(m => m);
+            ViewBag.VehicleTypes = VehicleTypes.ToList();
+            ViewBag.Members = Members.ToList();
             return View();
         }
 
@@ -68,7 +78,7 @@ namespace Garage2._0.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RegNo,Type,Colour,Brand,Model,AmountOfWheels")] Vehicle Vehicle, string searchProp, string searchValue)
+        public ActionResult Create([Bind(Include = "Id,RegNumber,Colour, VehicleTypeId, MemberId")] Vehicle Vehicle,string searchProp, string searchValue)
         {
             if (ModelState.IsValid)
             {
@@ -154,14 +164,9 @@ namespace Garage2._0.Controllers
         {
             
             var Vehicles = db.Vehicles.Select(e => e);
-            /*
-            if (searchProp == "RegNo") Vehicles = Vehicles.Where(e => e.RegNo == searchValue);
-            else if (searchProp == "Type")
-            {
-                var vehicleType = (VehicleTypes)Enum.Parse(typeof(VehicleTypes), searchValue, true);
-                Vehicles = Vehicles.Where(e => e.Type == vehicleType);
-
-            }
+            
+            if (searchProp == "RegNumber") Vehicles = Vehicles.Where(e => e.RegNumber == searchValue);
+            else if (searchProp == "Type") Vehicles = Vehicles.Where(e => e.VehicleType.VehicleSort == searchValue);
             else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
             else if (searchProp == "TimeParkedMore")
             {
@@ -173,17 +178,17 @@ namespace Garage2._0.Controllers
                 int dateTime;
                 if(int.TryParse(searchValue, out dateTime)) Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now) <= dateTime));
             }
-            */
+            
             return Vehicles;
         }
         private IQueryable<Vehicle> Sort(string orderBy, IQueryable<Vehicle> Vehicles)
         {
             if (orderBy == "RegNo") Vehicles = Vehicles.OrderBy(e => e.RegNumber);
             else if (orderBy == "RegNoDesc") Vehicles = Vehicles.OrderByDescending(e => e.RegNumber);
-            //else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.Type);
-            //else if (orderBy == "TypeDesc") Vehicles = Vehicles.OrderByDescending(e => e.Type);
-            else if (orderBy == "Colour") Vehicles = Vehicles.OrderBy(e => e.Colour);
-            else if (orderBy == "ColourDesc") Vehicles = Vehicles.OrderByDescending(e => e.Colour);
+            else if (orderBy == "Type") Vehicles = Vehicles.OrderBy(e => e.VehicleType.VehicleSort);
+            else if (orderBy == "TypeDesc") Vehicles = Vehicles.OrderByDescending(e => e.VehicleType.VehicleSort);
+            else if (orderBy == "Member") Vehicles = Vehicles.OrderBy(e => e.Member.Name);
+            else if (orderBy == "MemberDesc") Vehicles = Vehicles.OrderByDescending(e => e.Member.Name);
             else if (orderBy == "TimeParked") Vehicles = Vehicles.OrderBy(e => e.CheckInTime);
             else if (orderBy == "TimeParkedDesc") Vehicles = Vehicles.OrderByDescending(e => e.CheckInTime);
             return Vehicles;

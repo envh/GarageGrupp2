@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Garage2._0.Models.ParkedVehicle>
+﻿@model IEnumerable<Garage2._0.Models.Vehicle>
 
 @{
     ViewBag.Title = "";
@@ -13,7 +13,7 @@
     }
     else
     {
-        if (ViewBag.SearchProp == "RegNo")
+        if (ViewBag.SearchProp == "RegNumber")
         {
             headline = "Vehicle " + ViewBag.SearchValue + " in Joe's Garage";
         }
@@ -42,7 +42,7 @@
 <div id="searchBox">
     <h4 style="text-align:center;">Search</h4>
     <span>Property:</span> <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
-        <option value="RegNo">Registry Number</option>
+        <option value="RegNumber">Registry Number</option>
         <option value="Type">Type</option>
         <option value="Colour">Colour</option>
         <option value="TimeParkedMore">Time Parked (> hours)</option>
@@ -79,13 +79,13 @@
             }
         </th>
         <th>
-            @if (ViewBag.orderBy == "Colour")
+            @if (ViewBag.orderBy == "Member")
             {
-                @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "ColourDesc" })
+                @Html.ActionLink("Member", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "MemberDesc" })
             }
             else
             {
-                @Html.ActionLink("Colour", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Colour" })
+                @Html.ActionLink("Member", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "Member" })
             }
         </th>
         <th>
@@ -104,13 +104,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.RegNo)
+            @Html.DisplayFor(modelItem => item.RegNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
+            @Html.DisplayFor(modelItem => item.VehicleType.VehicleSort)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Colour)
+            @Html.DisplayFor(modelItem => item.Member.Name)
         </td>
         <td>
             @{
