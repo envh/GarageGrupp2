@@ -5,7 +5,41 @@
 }
 
 <h2>Detail view</h2>
-
+<div id="searchBox">
+    <h4 style="text-align:center;">Search</h4>
+    <span>Property:</span> <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
+        <option value="RegNumber">Registry Number</option>
+        <option value="Member">Member Name</option>
+        <option value="Membership">Membership type</option>
+        <option value="Type">Type</option>
+        <option value="CheckInTime">Check In Time</option>
+        <option value="TimeParkedMore">Time Parked (> hours)</option>
+        <option value="TimeParkedLess">Time Parked (< hours)</option>
+        <option value="ParkingSlot">Parking Slot</option>
+        <option value="Terrain">Transport Medium</option>
+        <option value="Wheels">Wheels</option>
+        <option value="Colour">Colour</option>
+    </select>
+    <br>
+    <span style="float: left;">Value:</span>
+    <form id="searchform" style="float:right;">
+        <input name="searchValue" id="textBox" type="text" />
+        <select id="selectType" style="display:none">
+            @foreach (var item in ViewBag.Types)
+            {
+                <option value="@item.VehicleSort"> @item.VehicleSort</option>
+            }
+        </select>
+        <select id="selectMedium" style="display:none">
+            <option class="terrain" value="Water">Water</option>
+            <option class="terrain" value="Road">Road</option>
+            <option class="terrain" value="Air">Air</option>
+            <option class="terrain" value="Terrain">Terrain</option>
+        </select>
+        <br />
+        <input type="submit" style="margin-top: 1px;">
+    </form>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -80,7 +114,38 @@
                 @Html.DisplayFor(modelItem => item.Colour)
             </td>
         </tr>
-    }
+                    }
 
 </table>
 <button>@Html.ActionLink("To vehicle overview", "Index")</button>
+
+<script>
+    AdaptForm = function () {
+        var searchValue = document.getElementById("searchProp").value
+        if (searchValue == "Type") {
+            document.getElementById("selectType").setAttribute("style", "display: inline-block")
+            document.getElementById("selectType").setAttribute("name", "searchValue")
+            document.getElementById("selectMedium").setAttribute("style", "display: none")
+            document.getElementById("selectMedium").removeAttribute("name")
+            document.getElementById("textBox").setAttribute("style", "display: none")
+            document.getElementById("textBox").removeAttribute("name")
+        }
+        else if (searchValue == "Terrain")
+        {
+            document.getElementById("selectMedium").setAttribute("style", "display: inline-block")
+            document.getElementById("selectMedium").setAttribute("name", "searchValue")
+            document.getElementById("selectType").setAttribute("style", "display: none")
+            document.getElementById("selectType").removeAttribute("name")
+            document.getElementById("textBox").setAttribute("style", "display: none")
+            document.getElementById("textBox").removeAttribute("name")
+        }
+        else {
+            document.getElementById("textBox").setAttribute("style", "display: inline-block")
+            document.getElementById("textBox").setAttribute("name", "searchValue")
+            document.getElementById("selectType").setAttribute("style", "display: none")
+            document.getElementById("selectType").removeAttribute("name")
+            document.getElementById("selectMedium").setAttribute("style", "display: none")
+            document.getElementById("selectMedium").removeAttribute("name")
+        }
+    }
+</script>

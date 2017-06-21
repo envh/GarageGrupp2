@@ -49,9 +49,15 @@
         <option value="TimeParkedLess">Time Parked (< hours)</option>
     </select>
     <br>
-    <span style="float: left;">Value:</span> 
+    <span style="float: left;">Value:</span>
     <form id="searchform" style="float:right;">
-        <input name="searchValue" id="select" type="text" />
+        <input name="searchValue" id="textBox" type="text" />
+        <select id="select" style="display:none">
+            @foreach (var item in ViewBag.Types)
+            {
+                <option class="types" value="@item.VehicleSort"> @item.VehicleSort</option>
+            }
+        </select>
         <br />
         <input type="submit" style="margin-top: 1px;">
     </form>
@@ -61,7 +67,7 @@
         <th>
             @if (ViewBag.orderBy == "RegNo")
             {
-                @Html.ActionLink("Registry number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNoDesc"})
+                @Html.ActionLink("Registry number", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "RegNoDesc" })
             }
             else
             {
@@ -101,39 +107,40 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.VehicleType.VehicleSort)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Member.Name)
-        </td>
-        <td>
-            @{
-                var timeParked = DateTime.Now - item.CheckInTime;
-                string displayTime = "";
-                if (timeParked.Days > 0)
-                {
-                    displayTime = displayTime + timeParked.Days + " days ";
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VehicleType.VehicleSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Name)
+            </td>
+            <td>
+                @{
+                    var timeParked = DateTime.Now - item.CheckInTime;
+                    string displayTime = "";
+                    if (timeParked.Days > 0)
+                    {
+                        displayTime = displayTime + timeParked.Days + " days ";
+                    }
+                    displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
                 }
-                displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
-            }
-            @displayTime
-        </td>
-        <td>
-            <button>
-                @Html.ActionLink("Details", "Details", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-            </button>
-            <button>
-                @Html.ActionLink("Check out", "Delete", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
-            </button>
-        </td>
-    </tr>
-}
+                @displayTime
+            </td>
+            <td>
+                <button>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+                </button>
+                <button>
+                    @Html.ActionLink("Check out", "Delete", new { id = item.Id, searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })
+                </button>
+            </td>
+        </tr>
+                    }
 
 </table>
 
@@ -147,33 +154,48 @@
 </div>
 
 <script>
-    AdaptForm = function ()
-    {
-        form = document.getElementById("searchform")
-        form.removeChild(document.getElementById("select"))
-        if (document.getElementById("searchProp").value == "Type")
-        {
-            var array = ["Airplane", "Boat", "Bus", "Car", "Motorcycle"]
-            var select = document.createElement("select");
-            select.name = "searchValue";
-            select.id = "select";
-            form.insertBefore(select, form.firstChild);
+    //AdaptForm = function ()
+    //{
+    //    form = document.getElementById("searchform")
+    //    form.removeChild(document.getElementById("select"))
+    //    if (document.getElementById("searchProp").value == "Type")
+    //    {
+    //        var array = ["Airplane", "Boat", "Bus", "Car", "Motorcycle"]
+    //        var select = document.createElement("select");
+    //        select.name = "searchValue";
+    //        select.id = "select";
+    //        form.insertBefore(select, form.firstChild);
 
-            for (var i = 0; i < array.length; i++)
-            {
-                var option = document.createElement("option");
-                option.value = array[i];
-                option.text = array[i];
-                select.appendChild(option);
-            }
+    //        for (var i = 0; i < array.length; i++)
+    //        {
+    //            var option = document.createElement("option");
+    //            option.value = array[i];
+    //            option.text = array[i];
+    //            select.appendChild(option);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        var text = document.createElement("input");
+    //        text.setAttribute("type", "text");
+    //        text.setAttribute("name", "searchValue")
+    //        text.id = "select";
+    //        form.insertBefore(text, form.firstChild);
+    //    }
+    //}
+    AdaptForm = function () {
+        var propValue = document.getElementById("searchProp").value;
+        if (propValue == "Type") {
+            document.getElementById("select").setAttribute("style", "display: inline-block")
+            document.getElementById("select").setAttribute("name", "searchValue")
+            document.getElementById("textBox").setAttribute("style", "display: none")
+            document.getElementById("textBox").removeAttribute("name")
         }
-        else
-        {
-            var text = document.createElement("input");
-            text.setAttribute("type", "text");
-            text.setAttribute("name", "searchValue")
-            text.id = "select";
-            form.insertBefore(text, form.firstChild);
+        else {
+            document.getElementById("textBox").setAttribute("style", "display: inline-block")
+            document.getElementById("textBox").setAttribute("name", "searchValue")
+            document.getElementById("select").setAttribute("style", "display: none")
+            document.getElementById("select").removeAttribute("name")
         }
     }
 

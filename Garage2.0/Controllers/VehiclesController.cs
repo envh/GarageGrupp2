@@ -35,12 +35,16 @@ namespace Garage2._0.Controllers
             ParkedVehicles = Sort(orderBy, ParkedVehicles);
             if (!ParkedVehicles.Any()) ViewBag.empty = true;
             else ViewBag.empty = false;
+            ViewBag.Types = db.VehicleTypes.Select(t => t);
             return View(ParkedVehicles.ToList());
         }
 
-        public ActionResult FullView()
+        public ActionResult FullView(string searchProp, string searchValue)
         {
-            var ParkedVehicles = db.Vehicles.Select(v => v);
+            var ParkedVehicles = Filter(searchProp, searchValue);
+            ViewBag.SearchProp = searchProp;
+            ViewBag.SearchValue = searchValue;
+            ViewBag.Types = db.VehicleTypes.Select(t => t);
             return View(ParkedVehicles.ToList());
         }
 
@@ -165,9 +169,8 @@ namespace Garage2._0.Controllers
             
             var Vehicles = db.Vehicles.Select(e => e);
             
-            if (searchProp == "RegNumber") Vehicles = Vehicles.Where(e => e.RegNumber == searchValue);
+            if (searchProp == "RegNumber") Vehicles = Vehicles.Where(e => e.RegNumber.Contains(searchValue));
             else if (searchProp == "Type") Vehicles = Vehicles.Where(e => e.VehicleType.VehicleSort == searchValue);
-            else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
             else if (searchProp == "TimeParkedMore")
             {
                 int dateTime;
@@ -178,7 +181,13 @@ namespace Garage2._0.Controllers
                 int dateTime;
                 if(int.TryParse(searchValue, out dateTime)) Vehicles = Vehicles.Where(e => (DbFunctions.DiffHours(e.CheckInTime, DateTime.Now) <= dateTime));
             }
-            
+            else if (searchProp == "Member") Vehicles = Vehicles.Where(e => e.Member.Name.Contains(searchValue));
+            else if (searchProp == "Membership") Vehicles = Vehicles.Where(e => e.Member.Status.ToString() == searchValue);
+            //else if (searchProp == "CheckInTime") Vehicles = Vehicles.Where(e => e.CheckInTime == searchValue);
+            else if (searchProp == "ParkingSlot") Vehicles = Vehicles.Where(e => e.ParkingSlot.ToString() == searchValue);
+            else if (searchProp == "Terrain") Vehicles = Vehicles.Where(e => e.VehicleType.TransportMedium == searchValue);
+            else if (searchProp == "Wheels") Vehicles = Vehicles.Where(e => e.VehicleType.Wheels.ToString() == searchValue);
+            else if (searchProp == "Colour") Vehicles = Vehicles.Where(e => e.Colour == searchValue);
             return Vehicles;
         }
         private IQueryable<Vehicle> Sort(string orderBy, IQueryable<Vehicle> Vehicles)

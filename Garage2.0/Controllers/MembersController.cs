@@ -16,7 +16,7 @@ namespace Garage2._0.Controllers
         private Garage2_0Context db = new Garage2_0Context();
 
         // GET: Members
-        public ActionResult Index(string SearchValue)
+        public ActionResult Index(string SearchValue, string orderBy)
         {
             var members = Filter(SearchValue);
             if (SearchValue == null)
@@ -27,6 +27,8 @@ namespace Garage2._0.Controllers
             {
                 ViewBag.InsertLink = true;
             }
+            ViewBag.orderBy = orderBy;
+            members = Sort(orderBy, members);
             return View(members.ToList());
         }
 
@@ -132,6 +134,21 @@ namespace Garage2._0.Controllers
         {
             var members = db.Members.Select(m => m);
             if(!string.IsNullOrEmpty(searchValue)) members = members.Where(m => m.Name.Contains(searchValue));
+            return members;
+        }
+
+        private IQueryable<Member> Sort(string orderBy, IQueryable<Member> members)
+        {
+            if (orderBy == "Name") members = members.OrderBy(m => m.Name);
+            else if (orderBy == "NameDesc") members = members.OrderByDescending(m => m.Name);
+            else if (orderBy == "InvoiceCost") members = members.OrderBy(m => m.InvoiceCost);
+            else if (orderBy == "InvoiceCostDesc") members = members.OrderByDescending(m => m.InvoiceCost);
+            else if (orderBy == "CurrentParkingCost") members = members.OrderBy(m => m.CurrentParkingCost);
+            else if (orderBy == "CurrentParkingCostDesc") members = members.OrderByDescending(m => m.CurrentParkingCost);
+            else if (orderBy == "Status") members = members.OrderBy(m => m.Status);
+            else if (orderBy == "StatusDesc") members = members.OrderByDescending(m => m.Status);
+            else if (orderBy == "VehiclesParked") members = members.OrderBy(m => m.Vehicles.Count);
+            else if (orderBy == "VehiclesParkedDesc") members = members.OrderByDescending(m => m.Vehicles.Count);
             return members;
         }
 
