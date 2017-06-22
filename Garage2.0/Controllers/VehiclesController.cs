@@ -85,7 +85,8 @@ namespace Garage2._0.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,RegNumber,Colour, VehicleTypeId, MemberId")] Vehicle Vehicle,string searchProp, string searchValue)
         {
-            if (ModelState.IsValid)
+            var regNumberUnique = !db.Vehicles.Any(v => v.RegNumber == Vehicle.RegNumber);
+            if (ModelState.IsValid && regNumberUnique)
             {
                 Vehicle.CheckInTime = DateTime.Now;
                 Vehicle.ParkingSlot = 0;
@@ -111,6 +112,7 @@ namespace Garage2._0.Controllers
                     ViewBag.ErrorGarageFull = "Sorry, the garage is currently full!";
                 }
             }
+            if (!regNumberUnique) ViewBag.ErrorVehicleExists = "Registry number is taken";
 
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
