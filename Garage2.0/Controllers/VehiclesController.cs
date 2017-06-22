@@ -36,6 +36,7 @@ namespace Garage2._0.Controllers
             if (!ParkedVehicles.Any()) ViewBag.empty = true;
             else ViewBag.empty = false;
             ViewBag.Types = db.VehicleTypes.Select(t => t);
+            ViewBag.Members = db.Members.Select(m => m);
             return View(ParkedVehicles.ToList());
         }
 

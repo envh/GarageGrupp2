@@ -123,29 +123,30 @@
     AdaptForm = function () {
         var searchValue = document.getElementById("searchProp").value
         if (searchValue == "Type") {
-            document.getElementById("selectType").setAttribute("style", "display: inline-block")
-            document.getElementById("selectType").setAttribute("name", "searchValue")
-            document.getElementById("selectMedium").setAttribute("style", "display: none")
-            document.getElementById("selectMedium").removeAttribute("name")
-            document.getElementById("textBox").setAttribute("style", "display: none")
-            document.getElementById("textBox").removeAttribute("name")
+            Show("selectType")
+            Hide("textBox")
+            Hide("selectMedium")
         }
         else if (searchValue == "Terrain")
         {
-            document.getElementById("selectMedium").setAttribute("style", "display: inline-block")
-            document.getElementById("selectMedium").setAttribute("name", "searchValue")
-            document.getElementById("selectType").setAttribute("style", "display: none")
-            document.getElementById("selectType").removeAttribute("name")
-            document.getElementById("textBox").setAttribute("style", "display: none")
-            document.getElementById("textBox").removeAttribute("name")
+            Show("selectMedium")
+            Hide("selectType")
+            Hide("textBox")
         }
         else {
-            document.getElementById("textBox").setAttribute("style", "display: inline-block")
-            document.getElementById("textBox").setAttribute("name", "searchValue")
-            document.getElementById("selectType").setAttribute("style", "display: none")
-            document.getElementById("selectType").removeAttribute("name")
-            document.getElementById("selectMedium").setAttribute("style", "display: none")
-            document.getElementById("selectMedium").removeAttribute("name")
+            Show("textBox")
+            Hide("selectType")
+            Hide("selectMedium")
         }
+    }
+    Hide = function (id)
+    {
+        document.getElementById(id).setAttribute("style", "display: none")
+        document.getElementById(id).removeAttribute("name")
+    }
+    Show = function (id)
+    {
+        document.getElementById(id).setAttribute("style", "display: inline-block")
+        document.getElementById(id).setAttribute("name", "searchValue")
     }
 </script>

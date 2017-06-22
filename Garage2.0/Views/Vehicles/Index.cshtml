@@ -44,7 +44,7 @@
     <span>Property:</span> <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">
         <option value="RegNumber">Registry Number</option>
         <option value="Type">Type</option>
-        <option value="Colour">Colour</option>
+        <option value="Member">Member</option>
         <option value="TimeParkedMore">Time Parked (> hours)</option>
         <option value="TimeParkedLess">Time Parked (< hours)</option>
     </select>
@@ -52,10 +52,16 @@
     <span style="float: left;">Value:</span>
     <form id="searchform" style="float:right;">
         <input name="searchValue" id="textBox" type="text" />
-        <select id="select" style="display:none">
+        <select id="selectType" style="display:none">
             @foreach (var item in ViewBag.Types)
             {
-                <option class="types" value="@item.VehicleSort"> @item.VehicleSort</option>
+                <option value="@item.VehicleSort"> @item.VehicleSort</option>
+            }
+        </select>
+        <select id="selectMember" style="display:none">
+            @foreach (var item in ViewBag.Members)
+            {
+                <option value="@item.Name">@item.Name</option>
             }
         </select>
         <br />
@@ -186,17 +192,28 @@
     AdaptForm = function () {
         var propValue = document.getElementById("searchProp").value;
         if (propValue == "Type") {
-            document.getElementById("select").setAttribute("style", "display: inline-block")
-            document.getElementById("select").setAttribute("name", "searchValue")
-            document.getElementById("textBox").setAttribute("style", "display: none")
-            document.getElementById("textBox").removeAttribute("name")
+            Show("selectType");
+            Hide("textBox");
+            Hide("selectMember");
+        }
+        else if (propValue == "Member") {
+            Show("selectMember");
+            Hide("selectType");
+            Hide("textBox");
         }
         else {
-            document.getElementById("textBox").setAttribute("style", "display: inline-block")
-            document.getElementById("textBox").setAttribute("name", "searchValue")
-            document.getElementById("select").setAttribute("style", "display: none")
-            document.getElementById("select").removeAttribute("name")
+            Show("textBox");
+            Hide("selectType");
+            Hide("selectMember");
         }
+    }
+    Hide = function (id) {
+        document.getElementById(id).setAttribute("style", "display: none")
+        document.getElementById(id).removeAttribute("name")
+    }
+    Show = function (id) {
+        document.getElementById(id).setAttribute("style", "display: inline-block")
+        document.getElementById(id).setAttribute("name", "searchValue")
     }
 
     //AddBackLink = function()
