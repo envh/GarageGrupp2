@@ -7,7 +7,7 @@
 <h2>Vehicles parked in Joe's Garage</h2>
 <h3>Extended view</h3>
 
-<button class="button-link">@Html.ActionLink("To vehicle overview", "Index")</button>
+<button class="button-link">@Html.ActionLink("Back to overview", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
 <div id="searchBox">
     <h4 style="text-align:center;">Search</h4>
     <span>Property:</span> <select name="searchProp" form="searchform" id="searchProp" onchange="AdaptForm()">

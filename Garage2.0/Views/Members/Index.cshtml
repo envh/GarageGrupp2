@@ -31,21 +31,21 @@
         <th>
             @if (ViewBag.orderBy == "InvoiceCost")
             {
-                @Html.ActionLink("Invoice Cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "InvoiceCostDesc" })
+                @Html.ActionLink("Invoiced cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "InvoiceCostDesc" })
             }
             else
             {
-                @Html.ActionLink("Invoice Cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "InvoiceCost" })
+                @Html.ActionLink("Invoiced cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "InvoiceCost" })
             }
         </th>
         <th>
             @if (ViewBag.orderBy == "CurrentParkingCost")
             {
-                @Html.ActionLink("Current Parking Cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "CurrentParkingCostDesc" })
+                @Html.ActionLink("Acc. parking cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "CurrentParkingCostDesc" })
             }
             else
             {
-                @Html.ActionLink("Current Parking Cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "CurrentParkingCost" })
+                @Html.ActionLink("Acc. parking cost", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "CurrentParkingCost" })
             }
         </th>
         <th>
@@ -61,11 +61,11 @@
         <th>
             @if (ViewBag.orderBy == "VehiclesParked")
             {
-                @Html.ActionLink("Number Of Vehicles Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "VehiclesParkedDesc" })
+                @Html.ActionLink("Parked vehicles", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "VehiclesParkedDesc" })
             }
             else
             {
-                @Html.ActionLink("Number Of Vehicles Parked", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "VehiclesParked" })
+                @Html.ActionLink("Parked vehicles", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "VehiclesParked" })
             }
         </th>
         <th></th>
@@ -88,7 +88,7 @@
             </td>
             <td>@Html.DisplayFor(modelItem => item.Vehicles.Count)</td>
             <td>
-                <button>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</button>
+                <button>@Html.ActionLink("Change data", "Edit", new { id = item.Id })</button>
                 <button>@Html.ActionLink("Details", "Details", new { id = item.Id })</button>
                 <button>@Html.ActionLink("Remove member", "Delete", new { id = item.Id })</button>
             </td>

@@ -45,7 +45,7 @@
             <button class="button-link">@Html.ActionLink("To vehicle overview", "Index")</button>
         }
 
-        <button class="button-link">@Html.ActionLink("To extended view", "FullView")</button>
+        <button class="button-link">@Html.ActionLink("To extended view", "FullView", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue })</button>
     }
 </div>
 
