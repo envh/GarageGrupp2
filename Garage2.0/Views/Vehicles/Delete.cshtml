@@ -65,14 +65,44 @@
             @displayTime
         </dd>
     </dl>
+    @{
+        TimeSpan diff = DateTime.Now.Subtract(Model.CheckInTime);
 
+        int kost1, kost4;
+        kost1 = kost4 = 0;
+
+
+        kost4 = diff.Days * 31;
+
+        if (2 <= diff.Hours)
+        {
+            kost1 = 12;
+            if (30 < (diff.Hours - 2) * 60 + diff.Minutes)
+            {
+                kost1 += 5;
+            }
+        }
+
+        if (12 <= diff.Hours)
+        {
+            kost1 = 27;
+            if (30 < (diff.Hours - 12) * 60 + diff.Minutes)
+            {
+                kost1 += 4;
+            }
+        }
+
+        var totalCost = kost1 + kost4;
+
+        ViewBag.InvoiceCost = totalCost;
+     }
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <button>
-                @Html.ActionLink("Confirm", "Receipt", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue, Id = Model.Id })
+                @Html.ActionLink("Confirm", "Receipt", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.SearchValue, Id = Model.Id, invoiceCost = totalCost})
             </button>
         </div>
     }

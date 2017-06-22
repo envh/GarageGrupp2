@@ -172,11 +172,11 @@ namespace Garage2._0.Controllers
         // POST: ParkedVehicles/Delete/5
         [HttpPost, ActionName("Receipt")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
+        public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue, int invoiceCost)
         {
             Vehicle Vehicle = db.Vehicles.Find(id);
             var member = Vehicle.Member;
-            member.InvoiceCost += ViewBag.CheckedOutCost;
+            member.InvoiceCost += invoiceCost;
             
  
             db.Vehicles.Remove(Vehicle);
@@ -184,11 +184,12 @@ namespace Garage2._0.Controllers
             return RedirectToAction("Index", new { searchProp, searchValue });
         }
 
-        public ActionResult Receipt(int? id, string searchProp, string searchValue)
+        public ActionResult Receipt(int? id, string searchProp, string searchValue, int invoiceCost)
         {
             Vehicle Vehicle = db.Vehicles.Find(id);
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
+            ViewBag.InvoiceCost = invoiceCost;
             return View(Vehicle);
         }
 

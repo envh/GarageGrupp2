@@ -11,41 +11,14 @@
 
     System.DateTime toDay = System.DateTime.Now;
 
-    string checkOutTime = "To day it is : " + toDay.DayOfWeek + " " + toDay.Day + " " + months[toDay.Month] + " " + toDay.Year + " at " + toDay.Hour + ":" + toDay.Minute;
+    string checkOutTime = "Today it is : " + toDay.DayOfWeek + " " + toDay.Day + " " + months[toDay.Month] + " " + toDay.Year + " at " + toDay.Hour + ":" + toDay.Minute;
 
     System.TimeSpan diff = toDay.Subtract(Model.CheckInTime);
 
-    string parkedTime = "You been parked: " + diff.Days + " day(s) " + diff.Hours + " hours and " + diff.Minutes + " minutes";
+    string parkedTime = "You've been parked: " + diff.Days + " day(s) " + diff.Hours + " hour(s) and " + diff.Minutes + " minute(s)";
 
-    int kost1, kost4;
-    kost1 =  kost4 = 0;
+    string parkedCost = "The total cost is: " + ViewBag.InvoiceCost + " €";
 
-    
-   kost4 = diff.Days * 31;
-
-    if (2 <= diff.Hours)
-    {
-        kost1 = 12;
-        if (30 < (diff.Hours-2)*60 + diff.Minutes)
-        {
-            kost1 += 5;
-        }
-    }
-
-    if (12 <= diff.Hours)
-    {
-        kost1 = 27;
-        if (30 < (diff.Hours - 12) * 60 + diff.Minutes)
-        {
-            kost1 += 4;
-        }
-    }
-
-    var totalCost = kost1 + kost4;
-
-    string parkedCost = "The total cost is: " + totalCost + " €";
-
-    ViewBag.CheckedOutCost = parkedCost;
 }
 <style>
     p.double {
@@ -54,7 +27,6 @@
         border-style: double;
         color: blue;
 }   
-    }
 </style>
 
 <h1>Ticket</h1>
