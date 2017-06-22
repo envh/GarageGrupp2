@@ -201,6 +201,8 @@ namespace Garage2._0.Controllers
             else if (orderBy == "MemberDesc") Vehicles = Vehicles.OrderByDescending(e => e.Member.Name);
             else if (orderBy == "TimeParked") Vehicles = Vehicles.OrderBy(e => e.CheckInTime);
             else if (orderBy == "TimeParkedDesc") Vehicles = Vehicles.OrderByDescending(e => e.CheckInTime);
+            else if (orderBy == "ParkingSlot") Vehicles = Vehicles.OrderBy(e => e.ParkingSlot);
+            else if (orderBy == "ParkingSlotDesc") Vehicles = Vehicles.OrderByDescending(e => e.ParkingSlot);
             return Vehicles;
         }
 

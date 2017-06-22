@@ -110,6 +110,16 @@
                 @Html.ActionLink("Parking time", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "TimeParked" })
             }
         </th>
+        <th>
+            @if (ViewBag.orderBy == "ParkingSlot")
+            {
+                @Html.ActionLink("Parking slot", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "ParkingSlotDesc" })
+            }
+            else
+            {
+                @Html.ActionLink("Parking slot", "Index", new { searchProp = ViewBag.SearchProp, searchValue = ViewBag.searchValue, orderBy = "ParkingSlot" })
+            }
+        </th>
         <th></th>
     </tr>
 
@@ -136,6 +146,9 @@
                     displayTime = displayTime + timeParked.Hours + " hours " + timeParked.Minutes + " minutes";
                 }
                 @displayTime
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParkingSlot)
             </td>
             <td>
                 <button>
