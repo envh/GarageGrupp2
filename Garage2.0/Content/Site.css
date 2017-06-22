@@ -65,6 +65,7 @@ select
 {
     float: left;
     margin-top: 4vh;
+    margin-left: 10px;
 }
 a:hover
 {
