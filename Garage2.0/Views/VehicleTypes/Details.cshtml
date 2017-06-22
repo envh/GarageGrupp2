@@ -1,0 +1,42 @@
+﻿@model Garage2._0.Models.VehicleType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details for @Model.VehicleSort</h2>
+
+<div>
+    <h4>VehicleType</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Vehicle sort:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.VehicleSort)
+        </dd>
+
+        <dt>
+            Transport medium:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TransportMedium)
+        </dd>
+
+        <dt>
+            Amount of wheels:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Wheels)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button>@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) </button>
+    <button>@Html.ActionLink("Back to List", "Index")</button>
+</p>

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Garage2._0.Models.VehicleType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Vehicle types allowed in Joe's Garage</h2>
+
+<p>
+    <button>@Html.ActionLink("Add new vehicle type", "Create")</button>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Vehicle sort
+        </th>
+        <th>
+            Transport medium
+        </th>
+        <th>
+            Amount of wheels
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.VehicleSort)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransportMedium)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Wheels)
+        </td>
+        <td>
+            <button>@Html.ActionLink("Edit", "Edit", new { id = item.Id })</button>
+            <button>@Html.ActionLink("Details", "Details", new { id = item.Id })</button>
+            <button>@Html.ActionLink("Delete", "Delete", new { id = item.Id })</button>
+        </td>
+    </tr>
+}
+
+</table>
