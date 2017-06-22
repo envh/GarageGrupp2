@@ -88,13 +88,36 @@ namespace Garage2._0.Controllers
             if (ModelState.IsValid)
             {
                 Vehicle.CheckInTime = DateTime.Now;
-                db.Vehicles.Add(Vehicle);
-                db.SaveChanges();
-                return RedirectToAction("Index", new { searchProp , searchValue });
+                Vehicle.ParkingSlot = 0;
+
+                var usedSlots = db.Vehicles.Select(v => v);
+                for (int i = 1; i <= 25; i++)
+                {
+                    if (!usedSlots.Any(v => v.ParkingSlot == i) )
+                    {
+                        Vehicle.ParkingSlot = i;
+                        i = 100;
+                    }
+                }
+
+                if (Vehicle.ParkingSlot != 0)
+                {
+                    db.Vehicles.Add(Vehicle);
+                    db.SaveChanges();
+                    return RedirectToAction("Index", new { searchProp, searchValue });
+                }
+                else
+                {
+                    ViewBag.ErrorGarageFull = "Sorry, the garage is currently full!";
+                }
             }
 
             ViewBag.SearchProp = searchProp;
             ViewBag.SearchValue = searchValue;
+            var VehicleTypes = db.VehicleTypes.Select(t => t);
+            var Members = db.Members.Select(m => m);
+            ViewBag.VehicleTypes = VehicleTypes.ToList();
+            ViewBag.Members = Members.ToList();
             return View(Vehicle);
         }
 
