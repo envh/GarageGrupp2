@@ -29,6 +29,43 @@ namespace Garage2._0.Controllers
             }
             ViewBag.orderBy = orderBy;
             members = Sort(orderBy, members);
+
+            foreach (var member in members)
+            {
+                int totalcost = 0;
+                foreach (var item in member.Vehicles)
+                {
+                    TimeSpan diff = DateTime.Now.Subtract(item.CheckInTime);
+
+                    int kost1, kost4;
+                    kost1 = kost4 = 0;
+
+
+                    kost4 = diff.Days * 31;
+
+                    if (2 <= diff.Hours)
+                    {
+                        kost1 = 12;
+                        if (30 < (diff.Hours - 2) * 60 + diff.Minutes)
+                        {
+                            kost1 += 5;
+                        }
+                    }
+
+                    if (12 <= diff.Hours)
+                    {
+                        kost1 = 27;
+                        if (30 < (diff.Hours - 12) * 60 + diff.Minutes)
+                        {
+                            kost1 += 4;
+                        }
+                    }
+
+                    totalcost += kost1 + kost4;
+                }
+                member.CurrentParkingCost = totalcost;
+            }
+            db.SaveChanges();
             return View(members.ToList());
         }
 
@@ -44,6 +81,40 @@ namespace Garage2._0.Controllers
             {
                 return HttpNotFound();
             }
+
+            int totalcost = 0;
+            foreach (var item in member.Vehicles)
+            {
+                TimeSpan diff = DateTime.Now.Subtract(item.CheckInTime);
+
+                int kost1, kost4;
+                kost1 = kost4 = 0;
+
+
+                kost4 = diff.Days * 31;
+
+                if (2 <= diff.Hours)
+                {
+                    kost1 = 12;
+                    if (30 < (diff.Hours - 2) * 60 + diff.Minutes)
+                    {
+                        kost1 += 5;
+                    }
+                }
+
+                if (12 <= diff.Hours)
+                {
+                    kost1 = 27;
+                    if (30 < (diff.Hours - 12) * 60 + diff.Minutes)
+                    {
+                        kost1 += 4;
+                    }
+                }
+
+                totalcost += kost1 + kost4;
+            }
+            member.CurrentParkingCost = totalcost;
+            db.SaveChanges();
             return View(member);
         }
 
