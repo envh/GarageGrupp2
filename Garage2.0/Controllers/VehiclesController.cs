@@ -175,6 +175,10 @@ namespace Garage2._0.Controllers
         public ActionResult DeleteConfirmed(int id, string searchProp, string searchValue)
         {
             Vehicle Vehicle = db.Vehicles.Find(id);
+            var member = Vehicle.Member;
+            member.InvoiceCost += ViewBag.CheckedOutCost;
+            
+ 
             db.Vehicles.Remove(Vehicle);
             db.SaveChanges();
             return RedirectToAction("Index", new { searchProp, searchValue });
